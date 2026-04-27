@@ -1000,6 +1000,27 @@
       .form-row { grid-template-columns: 1fr; }
       .services-header .btn { display: none; }
     }
+
+/* FIX CHECKBOX RGPD */
+.form-group input[type="checkbox"] {
+  width: auto !important;
+  appearance: auto !important;
+  -webkit-appearance: checkbox !important;
+  height: auto;
+  margin: 0;
+  cursor: pointer;
+}
+
+.form-group label {
+  cursor: pointer;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+</style>
   </style>
 </head>
 
@@ -1017,6 +1038,37 @@ href="https://statcounter.com/" target="_blank"><img class="statcounter"
 src="https://c.statcounter.com/13221946/0/24cb6fd6/1/" alt="Web Analytics"
 referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
 <!-- End of Statcounter Code -->
+
+
+<!-- COOKIE BANNER -->
+<div id="cookieBanner" style="position:fixed; bottom:0; left:0; right:0; background:#1A1A14; color:#fff; padding:1rem; z-index:9999; display:none;">
+  <div style="max-width:1200px; margin:auto; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1rem;">
+    <p style="font-size:0.85rem;">
+      Utilitzem cookies pròpies i de tercers per millorar l'experiència. Consulta la 
+      <a href="#cookies" style="color:#B89A5A; text-decoration:underline;">Política de Cookies</a>.
+    </p>
+    <div>
+      <button onclick="acceptCookies()" class="btn btn-gold">Acceptar</button>
+      <button onclick="rejectCookies()" class="btn btn-outline" style="color:#fff; border-color:#fff;">Rebutjar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function acceptCookies() {
+  localStorage.setItem("cookiesAccepted", "true");
+  document.getElementById("cookieBanner").style.display = "none";
+}
+function rejectCookies() {
+  localStorage.setItem("cookiesAccepted", "false");
+  document.getElementById("cookieBanner").style.display = "none";
+}
+window.onload = function() {
+  if (!localStorage.getItem("cookiesAccepted")) {
+    document.getElementById("cookieBanner").style.display = "block";
+  }
+};
+</script>
 
 <body>
 
@@ -1512,16 +1564,29 @@ referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
                   <option>Consultoria logística</option>
                 </select>
               </div>
-              <div class="form-group">
-                <label for="missatge">Missatge</label>
-                <textarea id="missatge" placeholder="Descriviu les vostres necessitats logístiques..."></textarea>
-              </div>
-              <p class="form-privacy">En enviar aquest formulari accepteu la nostra <a href="#" style="color:var(--c-gold-dk); text-decoration:underline;">Política de privacitat</a>. Les vostres dades s'usaran exclusivament per respondre la vostra consulta.</p>
-              <button class="btn btn-gold" style="width:100%; justify-content:center;" id="submitBtn">
-                Enviar la sol·licitud
-                <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-              </button>
-            </div>
+<div class="form-group">
+  <label>
+    <input type="checkbox" required>
+    Accepto el tractament de les meves dades segons la 
+    <a href="#privacitat" style="color:var(--c-gold-dk); text-decoration:underline;">Política de privacitat</a>.
+  </label>
+</div>
+
+<div class="form-group">
+  <label>
+    <input type="checkbox">
+    Autoritzo l’enviament de comunicacions comercials segons l’
+    <a href="#legal" style="color:var(--c-gold-dk); text-decoration:underline;">Avís legal</a>.
+  </label>
+</div>
+
+<p class="form-privacy">
+  Les dades s’utilitzaran per gestionar la vostra consulta i no es cediran a tercers.
+</p>
+
+<button class="btn btn-gold" style="width:100%; justify-content:center;" id="submitBtn">
+  Enviar la sol·licitud
+</button>
             <div class="form-success" id="formSuccess">
               <div class="form-success-icon">
                 <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
@@ -1535,6 +1600,39 @@ referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
     </section>
 
   </main>
+  <!-- AVÍS LEGAL -->
+<section id="legal">
+  <div class="container">
+    <h2>Avís Legal</h2>
+    <p><strong>Responsable:</strong> FoodLogístic S.A.</p>
+    <p><strong>Finalitat:</strong> Gestió de consultes i relació comercial.</p>
+    <p><strong>Drets:</strong> Accés, rectificació, supressió, oposició, limitació i portabilitat.</p>
+    <p><strong>Seguretat:</strong> Mesures tècniques i organitzatives adequades segons RGPD.</p>
+  </div>
+</section>
+
+<!-- POLÍTICA DE PRIVACITAT -->
+<section id="privacitat">
+  <div class="container">
+    <h2>Política de Privacitat</h2>
+    <p><strong>Base legal:</strong> Consentiment de l’interessat.</p>
+    <p><strong>Finalitat:</strong> Atendre consultes i enviament d’informació.</p>
+    <p><strong>Destinataris:</strong> No es cediran dades a tercers.</p>
+    <p><strong>Conservació:</strong> Durant el temps necessari per a la finalitat.</p>
+    <p><strong>Drets ARSLOP:</strong> Podeu exercir-los enviant un correu a info@foodlogistic.com.</p>
+  </div>
+</section>
+
+<!-- POLÍTICA DE COOKIES -->
+<section id="cookies">
+  <div class="container">
+    <h2>Política de Cookies</h2>
+    <p>Utilitzem cookies tècniques, analítiques i de personalització.</p>
+    <p><strong>Finalitat:</strong> Millorar navegació i analitzar ús.</p>
+    <p><strong>Durada:</strong> Segons tipus de cookie.</p>
+    <p>Podeu acceptar o rebutjar les cookies mitjançant el banner.</p>
+  </div>
+</section>
 
   <!-- FOOTER -->
   <footer>
@@ -1584,6 +1682,10 @@ referrerPolicy="no-referrer-when-downgrade"></a></div></noscript>
         </div>
       </div>
     </div>
+
+    <li><a href="#legal">Avís legal</a></li>
+    <li><a href="#privacitat">Política de privacitat</a></li>
+    <li><a href="#cookies">Política de cookies</a></li>
   </footer>
 
   <script>
